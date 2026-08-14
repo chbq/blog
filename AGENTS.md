@@ -6,19 +6,22 @@ This is the independent implementation repository for the personal technical
 blog. Work from this repository root for website development.
 
 `../personal-knowledge-lab` is read-only reference unless the user explicitly
-requests a change there. Never copy or publish knowledge-lab content
-automatically. Prefer the user's current instructions and recent public-facing
-materials over older knowledge-repository notes.
+requests a change there. `../blog-writing` is the private Obsidian mother-draft
+repository. Never copy or publish content from either repository automatically.
+Prefer the user's current instructions and recent public-facing materials over
+older knowledge-repository notes.
 
 ## Current phase
 
-The repository contains only a runnable foundation. Do not invent posts,
-sections, taxonomy, publishing workflows, CMS features, databases, login,
-deployment infrastructure, or speculative abstractions without an explicit
-request.
+The repository contains a runnable foundation plus an unwired public content
+receiving area at `content/`. Do not invent posts, sections, taxonomy,
+publishing automation, CMS features, databases, login, deployment
+infrastructure, or speculative abstractions without an explicit request.
 
-Project Notes and Essays remain two content scales, not separate systems, until
-real content proves a need for different handling.
+All articles remain one flat chronological writing stream. Project Notes and
+Essays are content scales, not separate systems. Use descriptive keywords
+instead of hard sections, and do not add comments or a guestbook to the first
+version.
 
 ## Commands
 
