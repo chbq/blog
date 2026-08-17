@@ -274,10 +274,10 @@ a {
 }
 
 .article-body hr {
-  width: 5rem;
+  width: 100%;
   margin: 4.5rem 0;
   border: 0;
-  border-top: 1px solid var(--ink);
+  border-top: 1px solid var(--line);
 }
 
 .article-body .katex-display {
