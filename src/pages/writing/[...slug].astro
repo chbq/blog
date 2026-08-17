@@ -1,0 +1,59 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import {
+  formatWritingDate,
+  getVisibleWriting,
+  writingHref,
+} from "../../lib/writing";
+
+export async function getStaticPaths() {
+  const entries = await getVisibleWriting();
+
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<"writing">;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.summary}>
+  <article class="article-shell">
+    <a class="back-link" href="/">← 全部文章</a>
+
+    <header class="article-header">
+      <div class="article-meta">
+        <time datetime={entry.data.date.toISOString()}>
+          {formatWritingDate(entry.data.date)}
+        </time>
+        {entry.data.updated && (
+          <span>更新于 {formatWritingDate(entry.data.updated)}</span>
+        )}
+        {entry.data.draft && <span class="draft-label">draft</span>}
+      </div>
+      <h1>{entry.data.title}</h1>
+      {entry.data.summary && <p class="article-summary">{entry.data.summary}</p>}
+      {entry.data.tags.length > 0 && (
+        <ul class="tag-list" aria-label="关键词">
+          {entry.data.tags.map((tag) => <li>{tag}</li>)}
+        </ul>
+      )}
+    </header>
+
+    <div class="article-body">
+      <Content />
+    </div>
+
+    <footer class="article-footer">
+      <a href={writingHref(entry)}>回到本文开头 ↑</a>
+    </footer>
+  </article>
+</BaseLayout>

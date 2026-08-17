@@ -13,10 +13,10 @@ older knowledge-repository notes.
 
 ## Current phase
 
-The repository contains a runnable foundation plus an unwired public content
-receiving area at `content/`. Do not invent posts, sections, taxonomy,
-publishing automation, CMS features, databases, login, deployment
-infrastructure, or speculative abstractions without an explicit request.
+The repository contains a runnable reading prototype and a public-preview
+content area at `content/`. Do not invent posts, sections, taxonomy, publishing
+automation, CMS features, databases, login, deployment infrastructure, or
+speculative abstractions without an explicit request.
 
 All articles remain one flat chronological writing stream. Project Notes and
 Essays are content scales, not separate systems. Use descriptive keywords
@@ -36,5 +36,5 @@ version.
 - Keep the default site static; add client-side JavaScript only where it adds
   real explanatory value.
 - Run `pnpm build` after implementation changes.
-- Treat `src/pages/index.astro` as a temporary smoke page, not an approved
-  homepage design.
+- Treat the current homepage and reading styles as the first real-content
+  prototype, not a finished visual design.

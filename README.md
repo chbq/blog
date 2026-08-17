@@ -7,10 +7,11 @@ technical blog. It is an independent sibling of `personal-knowledge-lab` and
 
 ## Current phase
 
-The repository has a static Astro baseline and a deliberately neutral smoke
-page. A public content receiving area now exists under `content/`, but Astro
-does not consume it yet. Site design, article rendering, MDX, deployment, and
-real posts remain intentionally unimplemented.
+The repository now renders the first local article projection from `content/`.
+The homepage is one chronological writing stream, and article pages support the
+Markdown features already used by the mother draft: math and Obsidian-style
+callouts. The visual system remains an early reading prototype rather than a
+finished site design.
 
 ## Authoring and publishing boundary
 
@@ -53,14 +54,22 @@ pnpm preview
 
 ```text
 content/
-  writing/              # approved public Markdown; not wired to Astro yet
+  writing/              # explicitly projected public-preview Markdown
   assets/               # approved public article assets
 src/
+  content.config.ts     # article metadata and content loader
+  layouts/
+    BaseLayout.astro
+  lib/
+    remark-obsidian-callouts.mjs
+    writing.ts
   pages/
-    index.astro       # temporary build and browser smoke page
+    index.astro
+    writing/[...slug].astro
   styles/
-    foundation.css    # neutral baseline only; not the visual design
+    foundation.css
 ```
 
-Add rendering structure only when the first real page or article makes the
-requirement concrete.
+Drafts appear during `pnpm dev`. Production builds omit entries with
+`draft: true`; use `pnpm exec astro build --mode preview` when a local static
+build should include drafts.

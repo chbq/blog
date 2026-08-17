@@ -1,22 +1,44 @@
 ---
-import "../styles/foundation.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import {
+  formatWritingDate,
+  getVisibleWriting,
+  writingHref,
+} from "../lib/writing";
 
-const title = "Blog foundation";
+const entries = await getVisibleWriting();
 ---
 
-<!doctype html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="robots" content="noindex" />
-    <title>{title}</title>
-  </head>
-  <body>
-    <main>
-      <p class="eyebrow">Repository foundation</p>
-      <h1>Blog design and content are intentionally pending.</h1>
-      <p>The static build is ready for the next design decision.</p>
-    </main>
-  </body>
-</html>
+<BaseLayout title="Writing" description="一条不分栏的写作流。">
+  <section class="home-heading">
+    <p class="eyebrow">Index</p>
+    <h1>写下来的东西</h1>
+  </section>
+
+  <section class="writing-index" aria-label="文章列表">
+    {
+      entries.map((entry) => (
+        <article class="writing-row">
+          <a class="writing-link" href={writingHref(entry)}>
+            <div class="writing-meta">
+              <time datetime={entry.data.date.toISOString()}>
+                {formatWritingDate(entry.data.date)}
+              </time>
+              {entry.data.draft && <span class="draft-label">draft</span>}
+            </div>
+            <div class="writing-copy">
+              <h2>{entry.data.title}</h2>
+              <p>{entry.data.summary}</p>
+              {entry.data.tags.length > 0 && (
+                <ul class="tag-list" aria-label="关键词">
+                  {entry.data.tags.map((tag) => <li>{tag}</li>)}
+                </ul>
+              )}
+            </div>
+            <span class="row-arrow" aria-hidden="true">↗</span>
+          </a>
+        </article>
+      ))
+    }
+  </section>
+</BaseLayout>
