@@ -32,7 +32,7 @@ const { Content } = await render(entry);
     <header class="article-header">
       <div class="article-meta">
         <time datetime={entry.data.date.toISOString()}>
-          {formatWritingDate(entry.data.date)}
+          发布于 {formatWritingDate(entry.data.date)}
         </time>
         {entry.data.updated && (
           <span>更新于 {formatWritingDate(entry.data.updated)}</span>

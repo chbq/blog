@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import {
   formatWritingDate,
   getVisibleWriting,
+  writingActivityDate,
   writingHref,
 } from "../lib/writing";
 
@@ -17,28 +18,33 @@ const entries = await getVisibleWriting();
 
   <section class="writing-index" aria-label="文章列表">
     {
-      entries.map((entry) => (
-        <article class="writing-row">
-          <a class="writing-link" href={writingHref(entry)}>
-            <div class="writing-meta">
-              <time datetime={entry.data.date.toISOString()}>
-                {formatWritingDate(entry.data.date)}
-              </time>
-              {entry.data.draft && <span class="draft-label">draft</span>}
-            </div>
-            <div class="writing-copy">
-              <h2>{entry.data.title}</h2>
-              <p>{entry.data.summary}</p>
-              {entry.data.tags.length > 0 && (
-                <ul class="tag-list" aria-label="关键词">
-                  {entry.data.tags.map((tag) => <li>{tag}</li>)}
-                </ul>
-              )}
-            </div>
-            <span class="row-arrow" aria-hidden="true">↗</span>
-          </a>
-        </article>
-      ))
+      entries.map((entry) => {
+        const activityDate = writingActivityDate(entry);
+
+        return (
+          <article class="writing-row">
+            <a class="writing-link" href={writingHref(entry)}>
+              <div class="writing-meta">
+                <time datetime={activityDate.toISOString()}>
+                  {entry.data.updated ? "更新 " : "发布 "}
+                  {formatWritingDate(activityDate)}
+                </time>
+                {entry.data.draft && <span class="draft-label">draft</span>}
+              </div>
+              <div class="writing-copy">
+                <h2>{entry.data.title}</h2>
+                <p>{entry.data.summary}</p>
+                {entry.data.tags.length > 0 && (
+                  <ul class="tag-list" aria-label="关键词">
+                    {entry.data.tags.map((tag) => <li>{tag}</li>)}
+                  </ul>
+                )}
+              </div>
+              <span class="row-arrow" aria-hidden="true">↗</span>
+            </a>
+          </article>
+        );
+      })
     }
   </section>
 </BaseLayout>

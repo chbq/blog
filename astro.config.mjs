@@ -7,6 +7,7 @@ import remarkObsidianCallouts from "./src/lib/remark-obsidian-callouts.mjs";
 
 export default defineConfig({
   output: "static",
+  site: "https://m-pkw.com",
   markdown: {
     processor: unified({
       remarkPlugins: [remarkMath, remarkObsidianCallouts],

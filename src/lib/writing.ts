@@ -10,8 +10,15 @@ export async function getVisibleWriting(): Promise<WritingEntry[]> {
   );
 
   return entries.sort((left, right) => {
-    return right.data.date.valueOf() - left.data.date.valueOf();
+    return (
+      writingActivityDate(right).valueOf() -
+      writingActivityDate(left).valueOf()
+    );
   });
+}
+
+export function writingActivityDate(entry: WritingEntry): Date {
+  return entry.data.updated ?? entry.data.date;
 }
 
 export function writingHref(entry: WritingEntry): string {
