@@ -17,6 +17,37 @@ published. The public repository stores only explicitly approved snapshots:
 content update, and the public copy uses `draft: false`. Do not derive either
 date from filesystem timestamps or Git commits.
 
+## Responsibilities
+
+Website work has two related but distinct responsibilities:
+
+- Site design and implementation owns information architecture, homepage and
+  navigation structure, visual language, reading experience, responsive
+  behavior, and reusable presentation features.
+- Snapshot integration and publication owns importing only an explicitly
+  approved public snapshot, translating its routes, metadata, media, and links,
+  verifying the real site, and carrying out Git or deployment actions only
+  when the user requests them.
+
+If snapshot integration exposes a narrow rendering requirement, implement the
+smallest reusable support needed here. Route broader changes to the site's
+structure or visual identity back through site-design work instead of letting
+publication silently redesign the website.
+
+## Snapshot intake
+
+- Accept only the files and public scope named in the handoff; do not inspect or
+  import other private manuscripts for convenience.
+- Treat handoff notes as instructions and validation evidence, not as website
+  content.
+- Preserve explicitly supplied routes and publication dates. Do not silently
+  rewrite article substance while adapting Obsidian-specific syntax.
+- After integration, verify the production build and the affected pages,
+  including metadata, links, formulas, callouts, media, and responsive layout
+  as applicable.
+- Do not commit, push, or deploy unless the current task explicitly includes
+  that action.
+
 ## Current phase
 
 The repository contains a runnable reading prototype and a public-preview
