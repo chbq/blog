@@ -75,6 +75,11 @@ a {
   width: min(72rem, calc(100% - 3rem));
   margin: 0 auto;
   padding: 1.25rem 0 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem 1.5rem;
   border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: 0.72rem;
@@ -83,6 +88,26 @@ a {
 
 .site-footer p {
   margin: 0;
+}
+
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  color: var(--muted);
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.footer-link svg {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+}
+
+.footer-link:hover,
+.footer-link:focus-visible {
+  color: var(--accent);
 }
 
 .home-heading {
