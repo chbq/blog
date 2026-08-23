@@ -4,7 +4,7 @@
     "Microsoft YaHei", sans-serif;
   color: #22231f;
   background: #f3f0e8;
-  font-synthesis: none;
+  font-synthesis: weight;
   text-rendering: optimizeLegibility;
   --ink: #22231f;
   --muted: #6d6c64;
@@ -317,7 +317,7 @@ a {
 .article-body strong {
   font-family: inherit;
   font-size: 1em;
-  font-weight: 760;
+  font-weight: 700;
   line-height: inherit;
 }
 
