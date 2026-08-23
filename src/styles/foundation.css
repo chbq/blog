@@ -26,6 +26,8 @@ html {
 body {
   min-height: 100vh;
   margin: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   color: var(--ink);
   background:
     linear-gradient(rgba(34, 35, 31, 0.035) 1px, transparent 1px) 0 0 / 100%
@@ -67,6 +69,20 @@ a {
   width: min(72rem, calc(100% - 3rem));
   margin: 0 auto;
   padding: clamp(2.5rem, 5vw, 4.5rem) 0 5rem;
+}
+
+.site-footer {
+  width: min(72rem, calc(100% - 3rem));
+  margin: 0 auto;
+  padding: 1.25rem 0 2rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+}
+
+.site-footer p {
+  margin: 0;
 }
 
 .home-heading {
@@ -266,6 +282,10 @@ a {
   margin: 1.35rem 0;
 }
 
+.article-body > p {
+  white-space: pre-line;
+}
+
 .article-body strong {
   font-family: inherit;
   font-size: 1em;
@@ -285,6 +305,26 @@ a {
   overflow-x: auto;
   overflow-y: hidden;
   padding: 0.6rem 0;
+}
+
+.article-body pre[data-language="text"] {
+  margin: 2.25rem 0;
+  padding: 1.25rem 1.4rem;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.34) !important;
+  color: var(--ink) !important;
+  font-family:
+    "Cascadia Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.86em;
+  font-variant-ligatures: none;
+  line-height: 1.55;
+}
+
+.article-body pre[data-language="text"] code,
+.article-body pre[data-language="text"] span {
+  color: inherit !important;
+  font: inherit;
 }
 
 .callout {
@@ -329,7 +369,8 @@ a {
 
 @media (max-width: 44rem) {
   .site-header,
-  .site-main {
+  .site-main,
+  .site-footer {
     width: min(100% - 2rem, 72rem);
   }
 
