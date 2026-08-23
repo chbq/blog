@@ -43,6 +43,7 @@ a {
 
 .site-header {
   width: min(72rem, calc(100% - 3rem));
+  min-width: 0;
   margin: 0 auto;
   padding: 1.5rem 0 1.25rem;
   display: flex;
@@ -67,12 +68,14 @@ a {
 
 .site-main {
   width: min(72rem, calc(100% - 3rem));
+  min-width: 0;
   margin: 0 auto;
   padding: clamp(2.5rem, 5vw, 4.5rem) 0 5rem;
 }
 
 .site-footer {
   width: min(72rem, calc(100% - 3rem));
+  min-width: 0;
   margin: 0 auto;
   padding: 1.25rem 0 2rem;
   display: flex;
@@ -318,6 +321,20 @@ a {
   line-height: inherit;
 }
 
+.article-body blockquote {
+  margin: 2.25rem 0;
+  padding: 0.1rem 0 0.1rem 1.25rem;
+  border-left: 0.2rem solid var(--line);
+}
+
+.article-body blockquote > :first-child {
+  margin-top: 0;
+}
+
+.article-body blockquote > :last-child {
+  margin-bottom: 0;
+}
+
 .article-body hr {
   width: 100%;
   margin: 4.5rem 0;
@@ -350,6 +367,31 @@ a {
 .article-body pre[data-language="text"] span {
   color: inherit !important;
   font: inherit;
+}
+
+.mermaid-diagram {
+  max-width: 100%;
+  margin: 2.5rem 0;
+  padding: 1.25rem;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.34);
+}
+
+.mermaid-diagram .mermaid-svg {
+  display: block;
+  max-width: none;
+  height: auto;
+  margin: 0 auto;
+}
+
+.mermaid-diagram--fit .mermaid-svg {
+  width: 100%;
+}
+
+.mermaid-diagram--compact .mermaid-svg {
+  width: min(100%, 22rem);
 }
 
 .callout {
@@ -396,11 +438,15 @@ a {
   .site-header,
   .site-main,
   .site-footer {
-    width: min(100% - 2rem, 72rem);
+    width: min(calc(100% - 2rem), 72rem);
   }
 
   .site-main {
     padding-top: 2.25rem;
+  }
+
+  .mermaid-diagram--fit .mermaid-svg {
+    width: auto;
   }
 
   .home-heading,

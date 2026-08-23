@@ -58,20 +58,14 @@ $$
 ## 2. JEPA 通用结构 ([2022 AMI Proposal](https://openreview.net/pdf?id=BZ5a1r-kVsf))
 
 
-```text
-x                           y
-│                           │
-▼                           ▼
-Encoder_x                 Encoder_y
-│                           │
-▼                           ▼
-s_x                         s_y
-│                            ▲
-│                            │
-├────── Predictor ───────► ŝ_y
-│        (s_x, z)
-│
-└────────────── D(ŝ_y, s_y)
+```mermaid
+flowchart LR
+    x["x"] --> encoder_x["Encoder_x"] --> s_x["s_x"]
+    y["y"] --> encoder_y["Encoder_y"] --> s_y["s_y"]
+    s_x --> predictor["Predictor"] --> shat_y["ŝ_y"]
+    z["z"] -.-> predictor
+    shat_y --> distance["D(ŝ_y, s_y)"]
+    s_y --> distance
 ```
 
 将两个输入：
@@ -326,17 +320,10 @@ EMA target 不会跟着剧烈跳：
 所以 target 表示变化更慢。
 
 也就是 EMA 人为制造一个**时间尺度不对称**，让每一步训练时，online side 面对的是一个相对稳定的 target：
-```text
-online encoder + predictor
-        │
-        │ 快速学习
-        ▼
-       当前模型
-        │
-        │ EMA
-        ▼
- target encoder
-     慢慢移动
+```mermaid
+flowchart TD
+    online["online encoder + predictor"] -->|快速学习| current["当前模型"]
+    current -->|EMA| target["target encoder<br/>慢慢移动"]
 ```
 
 这种“online network + slow-moving target network”的 self-supervised 训练方式在 BYOL 中已经非常明确([arXiv](https://arxiv.org/abs/2006.07733 "Bootstrap your own latent: A new approach to self-supervised Learning"))；I-JEPA 后来也采用 EMA target encoder。
@@ -347,41 +334,25 @@ online encoder + predictor
 ## 5. 当前小结
 
 
-```text
-                    EBM
-                     │
-                     │ 定义 compatibility
-                     ▼
-             scalar energy E(x,y)
-                     │
-                     │
-          JEPA 选择一种实现方式
-                     ▼
+```mermaid
+flowchart TB
+    ebm["EBM"] -->|定义 compatibility| energy["scalar energy E(x,y)"]
+    energy -->|JEPA 选择一种实现方式| jepa["JEPA"]
 
-      x                           y
-      │                           │
-      ▼                           ▼
-   Encoder_x                  Encoder_y
-      │                           │
-      ▼                           ▼
-     s_x                         s_y
-      │                           ▲
-      │                           │
-      ▼                           │
- Predictor(s_x, z)               │
-      │                           │
-      ▼                           │
-     ŝ_y ────── D(ŝ_y,s_y) ──────┘
-                    │
-                    ▼
-              scalar energy
+    subgraph structure [JEPA 结构]
+        direction LR
+        x["x"] --> encoder_x["Encoder_x"] --> s_x["s_x"]
+        y["y"] --> encoder_y["Encoder_y"] --> s_y["s_y"]
+        s_x --> predictor["Predictor"] --> shat_y["ŝ_y"]
+        z["z"] -.-> predictor
+        shat_y --> distance["D(ŝ_y, s_y)"]
+        s_y --> distance
+    end
 
-
-EMA:
-不是图中新的语义模块，
-而是一种更新 Encoder_y 参数的方式：
-
-θ̄ ← τθ̄ + (1−τ)θ
+    jepa --> x
+    jepa --> y
+    distance --> scalar["scalar energy"]
+    ema["EMA 更新 Encoder_y 参数<br/>θ̄ ← τθ̄ + (1−τ)θ"] -.-> encoder_y
 ```
 
 就本文讨论的训练目标而言，和 Dreamer 比起来，Dreamer 更加侧重显式的状态转移预测，JEPA 更加侧重 latent space 中哪些信息值得保留与预测。
