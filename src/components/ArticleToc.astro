@@ -1,0 +1,34 @@
+---
+interface TocHeading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: TocHeading[];
+  showTitle?: boolean;
+}
+
+const { headings, showTitle = false } = Astro.props;
+
+const displayHeadingText = (heading: TocHeading) =>
+  heading.text
+    .replace(/^\s*(?:\d+(?:\.\d+)*[.)、．]?|[一二三四五六七八九十]+[、.．])\s*/, "")
+    .trim();
+---
+
+<nav class="article-toc" aria-label="文章目录">
+  {showTitle && <p class="article-toc-title">目录</p>}
+  <ol class="article-toc-list">
+    {
+      headings.map((heading) => (
+        <li class:list={["article-toc-item", `article-toc-level-${heading.depth}`]}>
+          <a class="article-toc-link" href={`#${heading.slug}`}>
+            {displayHeadingText(heading)}
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+</nav>

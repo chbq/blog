@@ -4,6 +4,7 @@ import { createRequire } from "node:module";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 
+import rehypeCollapsibleSections from "./src/lib/rehype-collapsible-sections.mjs";
 import remarkMermaidSvg from "./src/lib/remark-mermaid-svg.mjs";
 import remarkObsidianCallouts from "./src/lib/remark-obsidian-callouts.mjs";
 
@@ -40,7 +41,10 @@ export default picomatch;`;
   markdown: {
     processor: unified({
       remarkPlugins: [remarkMath, remarkMermaidSvg, remarkObsidianCallouts],
-      rehypePlugins: [[rehypeKatex, { strict: false }]],
+      rehypePlugins: [
+        [rehypeKatex, { strict: false }],
+        rehypeCollapsibleSections,
+      ],
     }),
   },
 });
